@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/articlesFragment">
+
+    <fragment
+        android:id="@+id/articlesFragment"
+        android:name="dev.sukhrob.inshorts.presenter.fragments.articles.ArticlesFragment"
+        android:label="Articles">
+        <action
+            android:id="@+id/action_articlesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_articlesFragment_to_bookmarksFragment"
+            app:destination="@id/bookmarksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="dev.sukhrob.inshorts.presenter.fragments.details.DetailsFragment"
+        android:label="Details" >
+        <argument
+            android:name="article"
+            app:argType="dev.sukhrob.inshorts.domain.model.Article" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookmarksFragment"
+        android:name="dev.sukhrob.inshorts.presenter.fragments.bookmarks.BookmarksFragment"
+        android:label="Bookmarks" />
+</navigation>
