@@ -18,7 +18,6 @@ abstract class InShortsDatabase : RoomDatabase() {
 
         fun init(context: Context): InShortsDatabase {
             val temp = INSTANCE
-
             if (temp != null) {
                 return temp
             }
@@ -28,7 +27,7 @@ abstract class InShortsDatabase : RoomDatabase() {
                     context,
                     InShortsDatabase::class.java,
                     "inshorts.db"
-                ).allowMainThreadQueries().build()
+                ).build()
 
             INSTANCE = instance
             return instance

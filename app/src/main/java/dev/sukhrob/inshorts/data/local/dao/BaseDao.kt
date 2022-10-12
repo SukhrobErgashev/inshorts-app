@@ -8,16 +8,16 @@ import dev.sukhrob.inshorts.domain.model.Article
 
 interface BaseDao<T> {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(list: List<T>)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(list: List<T>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(item: T)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(item: T)
 
     @Update
-    fun update(item: T)
+    suspend fun update(item: T)
 
     @Delete
-    fun delete(item: T)
+    suspend fun delete(item: T)
 
 }

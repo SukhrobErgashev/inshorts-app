@@ -1,10 +1,11 @@
-package dev.sukhrob.inshorts
+package dev.sukhrob.inshorts.presenter.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import dev.sukhrob.inshorts.R
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

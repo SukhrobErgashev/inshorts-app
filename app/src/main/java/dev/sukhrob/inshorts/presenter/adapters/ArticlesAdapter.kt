@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import dev.sukhrob.inshorts.R
-import dev.sukhrob.inshorts.databinding.ItemArticleRowBinding
+import dev.sukhrob.inshorts.databinding.ItemArticlesBinding
 import dev.sukhrob.inshorts.domain.model.Article
 
 class ArticlesAdapter : ListAdapter<Article, ArticlesAdapter.ArticlesViewHolder>(DiffCallback) {
@@ -16,7 +16,7 @@ class ArticlesAdapter : ListAdapter<Article, ArticlesAdapter.ArticlesViewHolder>
     var bookmarkListener: ((Article) -> Unit)? = null
     var itemClickListener: ((Article) -> Unit)? = null
 
-    class ArticlesViewHolder(private val binding: ItemArticleRowBinding) :
+    class ArticlesViewHolder(private val binding: ItemArticlesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(article: Article) {
@@ -29,7 +29,7 @@ class ArticlesAdapter : ListAdapter<Article, ArticlesAdapter.ArticlesViewHolder>
 
         companion object {
             fun from(parent: ViewGroup): ArticlesViewHolder {
-                val binding = ItemArticleRowBinding.inflate(
+                val binding = ItemArticlesBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false

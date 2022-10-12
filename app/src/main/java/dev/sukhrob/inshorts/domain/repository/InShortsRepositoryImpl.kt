@@ -6,8 +6,14 @@ import dev.sukhrob.inshorts.data.local.dao.InShortsDao
 import dev.sukhrob.inshorts.data.local.entity.ArticleEntity
 import dev.sukhrob.inshorts.data.remote.api.InShortsApi
 import dev.sukhrob.inshorts.data.remote.response.BaseDto
-import dev.sukhrob.inshorts.data.remote.response.toArticleEntity
+import dev.sukhrob.inshorts.data.remote.response.toEntity
 import dev.sukhrob.inshorts.domain.model.Article
+import dev.sukhrob.inshorts.domain.model.Resource
+import dev.sukhrob.inshorts.domain.model.toEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,35 +24,27 @@ class InShortsRepositoryImpl @Inject constructor(
     private val dao: InShortsDao,
 ) : InShortsRepository {
 
-    private val loadingState = MutableLiveData(false)
+    override fun getArticlesByCategory(category: String) = flow<Resource<List<Article>>> {
 
-    override fun getArticlesByCategory(category: String): List<Article> {
-        loadingState.value = true
-        api.getArticlesByCategory(category).enqueue(object : Callback<BaseDto> {
-            override fun onResponse(call: Call<BaseDto>, response: Response<BaseDto>) {
-                loadingState.value = false
-                if (response.isSuccessful && response.body() != null) {
-                    val result = response.body()?.data ?: arrayListOf()
-                    dao.insertAll(result.map { it.toArticleEntity(category) })
-                }
+        val response = api.getArticlesByCategory(category)
+
+        if (response.isSuccessful) {
+            response.body()?.let { baseDto ->
+                dao.insertAll(baseDto.data.map { it.toEntity(baseDto.category) })
             }
+            emit(Resource.Success(dao.getArticlesByCategory(category)))
+        } else {
+            emit(Resource.Error("Oops, something is wrong!"))
+        }
+        dao.getArticlesByCategory(category)
 
-            override fun onFailure(call: Call<BaseDto>, t: Throwable) {
-                loadingState.value = false
-            }
+    }.catch {
+        emit(Resource.Error("Oops, something is wrong!"))
+    }.flowOn(Dispatchers.IO)
 
-        })
-
-        return dao.getArticlesByCategory(category)
+    override suspend fun updateArticle(item: ArticleEntity) {
+        dao.update(item)
     }
 
-    override fun loadingState(): LiveData<Boolean> = loadingState
-
-    override fun updateArticle(item: Article) {
-        dao.update(item as ArticleEntity)
-    }
-
-    override fun getBookmarks(): LiveData<List<Article>> {
-        return dao.getBookmarks()
-    }
+    override fun getBookmarks() = dao.getBookmarks()
 }

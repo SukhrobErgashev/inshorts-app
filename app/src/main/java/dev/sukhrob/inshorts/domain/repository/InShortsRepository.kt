@@ -1,20 +1,19 @@
 package dev.sukhrob.inshorts.domain.repository
 
-import androidx.lifecycle.LiveData
+import dev.sukhrob.inshorts.data.local.entity.ArticleEntity
 import dev.sukhrob.inshorts.domain.model.Article
+import dev.sukhrob.inshorts.domain.model.Resource
+import kotlinx.coroutines.flow.Flow
 
 interface InShortsRepository {
 
     // Load news
-    fun getArticlesByCategory(category: String): List<Article>
-
-    // Loading state
-    fun loadingState(): LiveData<Boolean>
+    fun getArticlesByCategory(category: String): Flow<Resource<List<Article>>>
 
     // Update item
-    fun updateArticle(item: Article)
+    suspend fun updateArticle(item: ArticleEntity)
 
     // Get Bookmarks
-    fun getBookmarks(): LiveData<List<Article>>
+    fun getBookmarks(): Flow<List<Article>>
 
 }

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,14 +35,10 @@ class ArticlesFragment : Fragment() {
     ): View? {
         _binding = FragmentArticlesBinding.inflate(inflater, container, false)
 
-        setHasOptionsMenu(true)
-
         setupRecyclerView()
         categoryAdapter.submitCategories(Categories.getAllCategory())
 
-
         setupArticlesList()
-
         //viewModel.loadArticlesByCategory("all")
 
         return binding.root
@@ -49,11 +47,15 @@ class ArticlesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-        viewModel.articlesLiveData.observe(viewLifecycleOwner) {
-            Log.d("TTT", "onViewCreated: ${it.size}")
+        viewModel.articles.observe(viewLifecycleOwner) {
             articlesAdapter.submitList(it)
+        }
+
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it)
+                binding.progressBar.visibility = View.VISIBLE
+            else
+                binding.progressBar.visibility = View.GONE
         }
 
         categoryAdapter.setItemClickListener {
@@ -68,8 +70,38 @@ class ArticlesFragment : Fragment() {
         }
 
         articlesAdapter.itemClickListener = {
-            findNavController().navigate(ArticlesFragmentDirections.actionArticlesFragmentToDetailsFragment(it))
+            findNavController().navigate(
+                ArticlesFragmentDirections.actionArticlesFragmentToDetailsFragment(
+                    it
+                )
+            )
         }
+
+        setupMenu()
+    }
+
+    private fun setupMenu() {
+        /**
+         *  We can tie the MenuProvider to the viewLifecycleOwner and optional
+         *  Lifecycle.State.RESUMED to indicates when the menu should be visible.
+         */
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu item here
+                menuInflater.inflate(R.menu.bookmarks_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                return when (menuItem.itemId) {
+                    R.id.bookmarks -> {
+                        navigateToBookmarks()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setupArticlesList() {
@@ -90,15 +122,10 @@ class ArticlesFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.bookmarks_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.bookmarks) {
-            findNavController().navigate(ArticlesFragmentDirections.actionArticlesFragmentToBookmarksFragment())
-        }
-        return super.onOptionsItemSelected(item)
+    private fun navigateToBookmarks() {
+        findNavController().navigate(
+            ArticlesFragmentDirections.actionArticlesFragmentToBookmarksFragment()
+        )
     }
 
 }

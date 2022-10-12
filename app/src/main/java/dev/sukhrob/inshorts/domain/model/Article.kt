@@ -1,10 +1,12 @@
 package dev.sukhrob.inshorts.domain.model;
 
 import android.os.Parcelable
+import dev.sukhrob.inshorts.data.local.entity.ArticleEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Article(
+    val id: Long,
     val author: String,
     val content: String,
     val date: String,
@@ -14,5 +16,21 @@ data class Article(
     val title: String,
     val url: String,
     val category: String,
-    var isBookmark: Boolean = false
+    var isBookmark: Boolean
 ) : Parcelable
+
+fun Article.toEntity(): ArticleEntity {
+    return ArticleEntity(
+        id = id,
+        author = author,
+        content = content,
+        date = date,
+        imageUrl = imageUrl,
+        readMoreUrl = readMoreUrl,
+        time = time,
+        title = title,
+        url = url,
+        category = category,
+        isBookmark = isBookmark
+    )
+}

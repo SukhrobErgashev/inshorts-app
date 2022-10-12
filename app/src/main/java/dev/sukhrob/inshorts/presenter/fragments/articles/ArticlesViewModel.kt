@@ -6,8 +6,9 @@ import dev.sukhrob.inshorts.domain.model.Article
 
 
 interface ArticlesViewModel {
-    val loadingLiveData: LiveData<Boolean>
-    val articlesLiveData: MutableLiveData<List<Article>>
+    val loading: LiveData<Boolean>
+    val articles: LiveData<List<Article>>
+    val error: LiveData<String>
 
     fun loadArticlesByCategory(category: String)
     fun update(item: Article)

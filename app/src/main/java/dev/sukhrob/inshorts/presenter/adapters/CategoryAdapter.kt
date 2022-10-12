@@ -3,10 +3,8 @@ package dev.sukhrob.inshorts.presenter.adapters
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import dev.sukhrob.inshorts.R
-import dev.sukhrob.inshorts.databinding.ItemCategoriesRowBinding
+import dev.sukhrob.inshorts.databinding.ItemCategoriesBinding
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
@@ -23,7 +21,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
         this.categories.addAll(list)
     }
 
-    class CategoryViewHolder(private val binding: ItemCategoriesRowBinding) :
+    class CategoryViewHolder(private val binding: ItemCategoriesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(string: String) {
@@ -32,7 +30,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
 
         companion object {
             fun from(parent: ViewGroup): CategoryViewHolder {
-                val binding = ItemCategoriesRowBinding.inflate(
+                val binding = ItemCategoriesBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false

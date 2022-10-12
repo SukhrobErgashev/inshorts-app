@@ -23,14 +23,14 @@ data class ArticleDto(
     val url: String
 )
 
-fun ArticleDto.toArticleEntity(category: String) = ArticleEntity(
-    author,
-    content,
-    date,
-    imageUrl,
-    readMoreUrl,
-    time,
-    title,
-    url,
-    category
+fun ArticleDto.toEntity(category: String) = ArticleEntity(
+    author = author,
+    content = content,
+    date = date,
+    imageUrl = imageUrl,
+    readMoreUrl = readMoreUrl,
+    time = time,
+    title = title,
+    url = url,
+    category = category
 )
