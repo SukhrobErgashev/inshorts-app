@@ -16,36 +16,24 @@ import dev.sukhrob.inshorts.data.local.Categories
 import dev.sukhrob.inshorts.databinding.FragmentArticlesBinding
 import dev.sukhrob.inshorts.presenter.adapters.ArticlesAdapter
 import dev.sukhrob.inshorts.presenter.adapters.CategoryAdapter
+import dev.sukhrob.inshorts.presenter.fragments.base.BaseFragment
 
 
 @AndroidEntryPoint
-class ArticlesFragment : Fragment() {
-
-    private var _binding: FragmentArticlesBinding? = null
-    private val binding get() = _binding!!
+class ArticlesFragment : BaseFragment<FragmentArticlesBinding>(FragmentArticlesBinding::inflate) {
 
     private val categoryAdapter by lazy { CategoryAdapter() }
     private val articlesAdapter by lazy { ArticlesAdapter() }
     private val viewModel: ArticlesViewModel by viewModels<ArticlesViewModelImpl>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentArticlesBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
         categoryAdapter.submitCategories(Categories.getAllCategory())
 
         setupArticlesList()
         //viewModel.loadArticlesByCategory("all")
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         viewModel.articles.observe(viewLifecycleOwner) {
             articlesAdapter.submitList(it)

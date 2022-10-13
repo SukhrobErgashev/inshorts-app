@@ -5,13 +5,16 @@
       <map>
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.161" />
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/drawable/ic_bookmarks.xml" value="0.161" />
+        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/drawable/shape_category_default.xml" value="0.166" />
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/activity_main.xml" value="0.15217391304347827" />
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_articles.xml" value="0.2" />
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_bookmarks.xml" value="0.15217391304347827" />
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_categories.xml" value="0.15217391304347827" />
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_details.xml" value="0.15217391304347827" />
+        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_second.xml" value="0.17074275362318841" />
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_article_row.xml" value="0.33" />
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_articles.xml" value="0.17074275362318841" />
+        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_categories.xml" value="0.33" />
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_categories_row.xml" value="0.33" />
         <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/menu/bookmarks_menu.xml" value="0.20260416666666667" />
       </map>
