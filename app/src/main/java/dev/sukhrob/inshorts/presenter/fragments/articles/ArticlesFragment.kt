@@ -8,12 +8,14 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.sukhrob.inshorts.R
 import dev.sukhrob.inshorts.data.local.Categories
 import dev.sukhrob.inshorts.databinding.FragmentArticlesBinding
+import dev.sukhrob.inshorts.domain.model.Article
 import dev.sukhrob.inshorts.presenter.adapters.ArticlesAdapter
 import dev.sukhrob.inshorts.presenter.adapters.CategoryAdapter
 import dev.sukhrob.inshorts.presenter.fragments.base.BaseFragment
@@ -35,26 +37,42 @@ class ArticlesFragment : BaseFragment<FragmentArticlesBinding>(FragmentArticlesB
         setupArticlesList()
         //viewModel.loadArticlesByCategory("all")
 
-        viewModel.articles.observe(viewLifecycleOwner) {
-            articlesAdapter.submitList(it)
-        }
+        setListeners()
+        setupMenu()
+    }
 
-        viewModel.loading.observe(viewLifecycleOwner) {
-            if (it)
-                binding.progressBar.visibility = View.VISIBLE
-            else
-                binding.progressBar.visibility = View.GONE
-        }
+    override fun onResume() {
+        super.onResume()
+        setObservers()
+    }
 
+    private val loadingObserver = Observer<Boolean> {
+        if (it)
+            binding.progressBar.visibility = View.VISIBLE
+        else
+            binding.progressBar.visibility = View.GONE
+    }
+
+    private val articlesObserver = Observer<List<Article>> {
+        articlesAdapter.submitList(it)
+    }
+
+    private fun setObservers() {
+        viewModel.articles.observe(viewLifecycleOwner, articlesObserver)
+        viewModel.loading.observe(viewLifecycleOwner, loadingObserver)
+    }
+
+    private fun setListeners() {
         categoryAdapter.setItemClickListener {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             viewModel.loadArticlesByCategory(it)
         }
 
-        articlesAdapter.bookmarkListener = {
-            viewModel.update(it.apply {
+        articlesAdapter.bookmarkListener = { article, position ->
+            viewModel.update(article.apply {
                 this.isBookmark = !isBookmark
             })
+            articlesAdapter.notifyItemChanged(position)
         }
 
         articlesAdapter.itemClickListener = {
@@ -64,8 +82,6 @@ class ArticlesFragment : BaseFragment<FragmentArticlesBinding>(FragmentArticlesB
                 )
             )
         }
-
-        setupMenu()
     }
 
     private fun setupMenu() {

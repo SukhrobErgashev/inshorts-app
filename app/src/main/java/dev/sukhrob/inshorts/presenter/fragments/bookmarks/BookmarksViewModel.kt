@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.sukhrob.inshorts.domain.model.Article
+import dev.sukhrob.inshorts.domain.model.toEntity
 import dev.sukhrob.inshorts.domain.repository.InShortsRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,12 +29,18 @@ class BookmarksViewModel @Inject constructor(
             _loading.postValue(true)
             repo.getBookmarks().collect {
                 if (it.isEmpty()) {
-                    _bookmarks.postValue(it)
-                } else {
                     _error.postValue("There are no bookmarks yet!")
+                } else {
+                    _bookmarks.postValue(it)
                 }
             }
             _loading.postValue(false)
+        }
+    }
+
+    fun update(item: Article) {
+        viewModelScope.launch {
+            repo.updateArticle(item.toEntity())
         }
     }
 

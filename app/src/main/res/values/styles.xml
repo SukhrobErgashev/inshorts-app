@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CategoryDefaultStyle">
+        <item name="android:textColor">#FF6861</item>
+        <item name="background">@drawable/shape_category_default</item>
+    </style>
+
+    <style name="CategorySelectedStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="background">@drawable/shape_category_selected</item>
+    </style>
+
+</resources>

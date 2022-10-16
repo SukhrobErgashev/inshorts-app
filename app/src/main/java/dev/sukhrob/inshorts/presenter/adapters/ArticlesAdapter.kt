@@ -13,7 +13,7 @@ import dev.sukhrob.inshorts.domain.model.Article
 
 class ArticlesAdapter : ListAdapter<Article, ArticlesAdapter.ArticlesViewHolder>(DiffCallback) {
 
-    var bookmarkListener: ((Article) -> Unit)? = null
+    var bookmarkListener: ((Article, Int) -> Unit)? = null
     var itemClickListener: ((Article) -> Unit)? = null
 
     class ArticlesViewHolder(private val binding: ItemArticlesBinding) :
@@ -24,6 +24,13 @@ class ArticlesAdapter : ListAdapter<Article, ArticlesAdapter.ArticlesViewHolder>
             binding.articleAuthorRow.text = article.author
             binding.articleImageRow.load(article.imageUrl) {
                 crossfade(600)
+            }
+            binding.textCategory.text = article.category
+
+            if (article.isBookmark) {
+                binding.articleBookmarkRow.setBackgroundResource(R.drawable.ic_bookmark_checked)
+            } else {
+                binding.articleBookmarkRow.setBackgroundResource(R.drawable.ic_bookmark_unchecked)
             }
         }
 
@@ -61,7 +68,7 @@ class ArticlesAdapter : ListAdapter<Article, ArticlesAdapter.ArticlesViewHolder>
             itemClickListener?.invoke(getItem(position))
         }
         holder.itemView.findViewById<ImageView>(R.id.article_bookmark_row).setOnClickListener {
-            bookmarkListener?.invoke(getItem(position))
+            bookmarkListener?.invoke(getItem(position), position)
         }
     }
 }

@@ -26,5 +26,9 @@
     <fragment
         android:id="@+id/bookmarksFragment"
         android:name="dev.sukhrob.inshorts.presenter.fragments.bookmarks.BookmarksFragment"
-        android:label="Bookmarks" />
+        android:label="Bookmarks" >
+        <action
+            android:id="@+id/action_bookmarksFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>

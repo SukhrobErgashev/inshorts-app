@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/shape_category_default"
-    android:padding="8dp"
-    android:text="Trending"
-    android:textColor="@color/white"
-    app:fontFamily="@font/roboto_bold" />
+    android:layout_marginHorizontal="2dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textCategory"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_category_default"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="10dp"
+        android:textSize="16sp"
+        android:text="Trending"
+        android:gravity="center"
+        android:textColor="#FF6861"
+        app:fontFamily="@font/roboto_medium"
+        tools:ignore="RtlSymmetry" />
+
+</LinearLayout>

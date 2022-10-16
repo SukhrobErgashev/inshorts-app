@@ -1,0 +1,117 @@
+Index: app/src/main/res/layout/fragment_details.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_details.xml b/app/src/main/res/layout/fragment_details.xml
+--- a/app/src/main/res/layout/fragment_details.xml	(revision 0793a8de83e07bc82697663481854dc784238244)
++++ b/app/src/main/res/layout/fragment_details.xml	(date 1665659631092)
+@@ -1,6 +1,14 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+ 
++    <TextView
++        android:id="@+id/textView"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="TextView"
++        tools:layout_editor_absoluteX="120dp"
++        tools:layout_editor_absoluteY="146dp" />
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision 0793a8de83e07bc82697663481854dc784238244)
++++ /dev/null	(revision 0793a8de83e07bc82697663481854dc784238244)
+@@ -1,3 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision 0793a8de83e07bc82697663481854dc784238244)
++++ b/.idea/vcs.xml	(date 1665659520299)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/drawable/ic_baseline_bookmark_24.xml\" value=\"0.161\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/drawable/ic_bookmarks.xml\" value=\"0.161\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/drawable/shape_category_default.xml\" value=\"0.166\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/activity_main.xml\" value=\"0.15217391304347827\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_articles.xml\" value=\"0.2\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_bookmarks.xml\" value=\"0.15217391304347827\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_categories.xml\" value=\"0.15217391304347827\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_details.xml\" value=\"0.15217391304347827\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_second.xml\" value=\"0.17074275362318841\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_article_row.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_articles.xml\" value=\"0.17074275362318841\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_categories.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_categories_row.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Projects/Android Studio Projects/inshorts/app/src/main/res/menu/bookmarks_menu.xml\" value=\"0.20260416666666667\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 0793a8de83e07bc82697663481854dc784238244)
++++ b/.idea/misc.xml	(date 1665659520268)
+@@ -1,26 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="DesignSurface">
+-    <option name="filePathToZoomLevelMap">
+-      <map>
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.161" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/drawable/ic_bookmarks.xml" value="0.161" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/drawable/shape_category_default.xml" value="0.166" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/activity_main.xml" value="0.15217391304347827" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_articles.xml" value="0.2" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_bookmarks.xml" value="0.15217391304347827" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_categories.xml" value="0.15217391304347827" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_details.xml" value="0.15217391304347827" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/fragment_second.xml" value="0.17074275362318841" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_article_row.xml" value="0.33" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_articles.xml" value="0.17074275362318841" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_categories.xml" value="0.33" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/layout/item_categories_row.xml" value="0.33" />
+-        <entry key="..\:/Projects/Android Studio Projects/inshorts/app/src/main/res/menu/bookmarks_menu.xml" value="0.20260416666666667" />
+-      </map>
+-    </option>
+-  </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"11\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 0793a8de83e07bc82697663481854dc784238244)
++++ b/.idea/gradle.xml	(date 1665659520361)
+@@ -1,13 +1,11 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+         <option name="testRunner" value="GRADLE" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleJvm" value="11" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />

@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_container_row"
     android:layout_width="match_parent"
-    app:cardElevation="10dp"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,27 +17,30 @@
             android:layout_height="120dp"
             android:layout_margin="15dp"
             app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:scaleType="centerCrop"
                 android:id="@+id/article_image_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/avatars" />
         </androidx.cardview.widget.CardView>
 
         <TextView
+            android:fontFamily="@font/roboto"
             android:id="@+id/article_author_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
-            android:alpha="0.7"
+            android:alpha="0.6"
             android:text="By Chad Vazques"
+            android:textColor="#072D4B"
+            app:layout_constraintBottom_toTopOf="@+id/article_title_row"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toTopOf="@+id/cardView" />
 
@@ -47,16 +49,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:justificationMode="inter_word"
             android:layout_marginBottom="12dp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
+            android:fontFamily="@font/roboto_medium"
             android:text="Pos Hardware More options for get all prepare more questions"
+            android:textColor="#072D4B"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/article_time_row"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/article_author_row"
             app:layout_constraintVertical_bias="1.0" />
@@ -64,13 +69,15 @@
         <TextView
             android:id="@+id/article_time_row"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/roboto"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
-            android:layout_marginBottom="8dp"
-            android:alpha="0.7"
+            android:alpha="0.6"
             android:text="April 24, 2022"
+            android:textColor="#072D4B"
             app:layout_constraintBottom_toBottomOf="@+id/cardView"
-            app:layout_constraintEnd_toEndOf="@+id/article_title_row" />
+            app:layout_constraintEnd_toEndOf="@+id/article_title_row"
+            app:layout_constraintTop_toBottomOf="@+id/article_title_row" />
 
         <ImageView
             android:id="@+id/article_bookmark_row"
@@ -80,7 +87,32 @@
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_bookmark_true" />
+            app:srcCompat="@drawable/ic_bookmark_unchecked" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:alpha="0.5"
+            android:background="#072D4B"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/shape_category_default"
+            android:textColor="#FF6861"
+            android:id="@+id/textCategory"
+            android:fontFamily="@font/roboto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entertiment"
+            app:layout_constraintBottom_toBottomOf="@+id/article_time_row"
+            app:layout_constraintStart_toStartOf="@+id/article_title_row" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

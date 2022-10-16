@@ -1,9 +1,11 @@
 package dev.sukhrob.inshorts.presenter.adapters
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dev.sukhrob.inshorts.R
 import dev.sukhrob.inshorts.databinding.ItemCategoriesBinding
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
@@ -24,8 +26,20 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
     class CategoryViewHolder(private val binding: ItemCategoriesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(string: String) {
-            binding.categoryNameRow.text = string
+        fun bind(string: String, selectedItem: Int) {
+            binding.textCategory.text = string
+
+            // if item selected then change it's state color
+            when (selectedItem) {
+                adapterPosition -> {
+                    binding.textCategory.setBackgroundResource(R.drawable.shape_category_selected)
+                    binding.textCategory.setTextColor(Color.parseColor("#ffffff"))
+                }
+                else -> {
+                    binding.textCategory.setBackgroundResource(R.drawable.shape_category_default)
+                    binding.textCategory.setTextColor(Color.parseColor("#FF6861"))
+                }
+            }
         }
 
         companion object {
@@ -45,7 +59,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(categories[position])
+        holder.bind(categories[position], selectedItem)
         holder.itemView.setOnClickListener {
             listener?.invoke(categories[position])
 
@@ -56,16 +70,6 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
 
             selectedItem = holder.adapterPosition
             notifyDataSetChanged()
-        }
-
-        // if item selected then change it's state color
-        when (selectedItem) {
-            position -> {
-                holder.itemView.setBackgroundColor(Color.RED)
-            }
-            else -> {
-                holder.itemView.setBackgroundColor(Color.WHITE)
-            }
         }
     }
 
