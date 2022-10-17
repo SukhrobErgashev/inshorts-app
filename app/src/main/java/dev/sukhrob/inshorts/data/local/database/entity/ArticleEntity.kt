@@ -1,4 +1,4 @@
-package dev.sukhrob.inshorts.data.local.entity
+package dev.sukhrob.inshorts.data.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.Index

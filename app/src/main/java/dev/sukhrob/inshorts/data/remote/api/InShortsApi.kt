@@ -9,6 +9,6 @@ import retrofit2.http.Query
 interface InShortsApi {
 
     @GET("news")
-    suspend fun getArticlesByCategory(@Query("category") category: String): Response<BaseDto>
+    suspend fun loadNewsByCategory(@Query("category") category: String): Response<BaseDto>
 
 }

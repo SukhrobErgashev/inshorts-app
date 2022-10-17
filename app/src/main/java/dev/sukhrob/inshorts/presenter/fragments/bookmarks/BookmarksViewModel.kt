@@ -40,7 +40,7 @@ class BookmarksViewModel @Inject constructor(
 
     fun update(item: Article) {
         viewModelScope.launch {
-            repo.updateArticle(item.toEntity())
+            repo.updateArticle(item)
         }
     }
 

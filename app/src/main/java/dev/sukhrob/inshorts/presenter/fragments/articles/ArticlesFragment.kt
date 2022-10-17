@@ -5,20 +5,21 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.sukhrob.inshorts.R
-import dev.sukhrob.inshorts.data.local.Categories
+import dev.sukhrob.inshorts.utils.Categories
 import dev.sukhrob.inshorts.databinding.FragmentArticlesBinding
-import dev.sukhrob.inshorts.domain.model.Article
 import dev.sukhrob.inshorts.presenter.adapters.ArticlesAdapter
 import dev.sukhrob.inshorts.presenter.adapters.CategoryAdapter
 import dev.sukhrob.inshorts.presenter.fragments.base.BaseFragment
+import dev.sukhrob.inshorts.utils.hide
+import dev.sukhrob.inshorts.utils.show
+import dev.sukhrob.inshorts.utils.viewState.ViewState
 
 
 @AndroidEntryPoint
@@ -39,27 +40,25 @@ class ArticlesFragment : BaseFragment<FragmentArticlesBinding>(FragmentArticlesB
 
         setListeners()
         setupMenu()
+        observeUiState()
     }
 
-    override fun onResume() {
-        super.onResume()
-        setObservers()
-    }
-
-    private val loadingObserver = Observer<Boolean> {
-        if (it)
-            binding.progressBar.visibility = View.VISIBLE
-        else
-            binding.progressBar.visibility = View.GONE
-    }
-
-    private val articlesObserver = Observer<List<Article>> {
-        articlesAdapter.submitList(it)
-    }
-
-    private fun setObservers() {
-        viewModel.articles.observe(viewLifecycleOwner, articlesObserver)
-        viewModel.loading.observe(viewLifecycleOwner, loadingObserver)
+    private fun observeUiState() = lifecycleScope.launchWhenStarted {
+        viewModel.uiState.collect { uiState ->
+            when (uiState) {
+                is ViewState.Error -> {
+                    binding.progressBar.hide()
+                }
+                is ViewState.Loading -> {
+                    binding.progressBar.show()
+                }
+                is ViewState.Success -> {
+                    binding.progressBar.hide()
+                    articlesAdapter.submitList(uiState.articles)
+                }
+                else -> Unit
+            }
+        }
     }
 
     private fun setListeners() {

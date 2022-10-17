@@ -2,7 +2,7 @@ package dev.sukhrob.inshorts.data.remote.response
 
 
 import com.google.gson.annotations.SerializedName
-import dev.sukhrob.inshorts.data.local.entity.ArticleEntity
+import dev.sukhrob.inshorts.data.local.database.entity.ArticleEntity
 
 data class ArticleDto(
     @SerializedName("author")

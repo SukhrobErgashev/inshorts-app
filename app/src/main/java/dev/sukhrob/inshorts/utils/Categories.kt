@@ -1,4 +1,4 @@
-package dev.sukhrob.inshorts.data.local
+package dev.sukhrob.inshorts.utils
 
 object Categories {
 

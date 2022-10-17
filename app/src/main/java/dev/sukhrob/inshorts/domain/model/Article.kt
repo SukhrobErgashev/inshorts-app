@@ -1,7 +1,7 @@
 package dev.sukhrob.inshorts.domain.model;
 
 import android.os.Parcelable
-import dev.sukhrob.inshorts.data.local.entity.ArticleEntity
+import dev.sukhrob.inshorts.data.local.database.entity.ArticleEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

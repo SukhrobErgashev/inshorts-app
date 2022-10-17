@@ -10,6 +10,10 @@ import dev.sukhrob.inshorts.domain.model.Article
 import dev.sukhrob.inshorts.domain.model.Resource
 import dev.sukhrob.inshorts.domain.model.toEntity
 import dev.sukhrob.inshorts.domain.repository.InShortsRepository
+import dev.sukhrob.inshorts.utils.InternetConnection
+import dev.sukhrob.inshorts.utils.viewState.ViewState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,38 +22,45 @@ import javax.inject.Inject
 class ArticlesViewModelImpl @Inject constructor(private val repository: InShortsRepository) :
     ArticlesViewModel, ViewModel() {
 
-    private val _loading = MutableLiveData<Boolean>()
-    private val _articles = MutableLiveData<List<Article>>()
-    private val _error = MutableLiveData<String>()
-
-    override val loading: LiveData<Boolean> get() = _loading
-    override val articles: LiveData<List<Article>> get() = _articles
-    override val error: LiveData<String> get() = _error
+    private val _uiState = MutableStateFlow<ViewState>(ViewState.Empty)
+    override val uiState: StateFlow<ViewState> get() = _uiState
 
     override fun loadArticlesByCategory(category: String) {
         viewModelScope.launch {
-            _loading.postValue(true)
-            repository.getArticlesByCategory(category).collect {
-                when (it) {
-                    is Resource.Success -> {
-                        it.data?.let { data ->
-                            _articles.postValue(data)
-                        }
-                    }
-                    is Resource.Error -> {
-                        it.message?.let { message ->
-                            _error.postValue(message)
-                        }
-                    }
+            _uiState.value = ViewState.Loading
+            repository.loadNews(category, true).collect { result ->
+                if (result.isNullOrEmpty()) {
+                    _uiState.value = ViewState.Empty
+                }
+                else {
+                    _uiState.value = ViewState.Success(result)
                 }
             }
-            _loading.postValue(false)
         }
     }
 
     override fun update(item: Article) {
         viewModelScope.launch {
-            repository.updateArticle(item.toEntity())
+            repository.updateArticle(item)
         }
     }
 }
+
+//viewModelScope.launch {
+//    _loading.postValue(true)
+//    repository.getArticlesByCategory(category).collect {
+//        when (it) {
+//            is Resource.Success -> {
+//                it.data?.let { data ->
+//                    _articles.postValue(data)
+//                }
+//            }
+//            is Resource.Error -> {
+//                it.message?.let { message ->
+//                    _error.postValue(message)
+//                }
+//            }
+//        }
+//    }
+//    _loading.postValue(false)
+//}

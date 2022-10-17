@@ -6,8 +6,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import dev.sukhrob.inshorts.data.local.InShortsDatabase
-import dev.sukhrob.inshorts.data.local.dao.InShortsDao
+import dev.sukhrob.inshorts.data.local.database.InShortsDatabase
+import dev.sukhrob.inshorts.data.local.database.dao.ArticlesDao
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -18,6 +18,6 @@ class DatabaseModule {
         InShortsDatabase.init(context)
 
     @Provides
-    fun provideDao(database: InShortsDatabase): InShortsDao = database.getInShortsDao()
+    fun provideDao(database: InShortsDatabase): ArticlesDao = database.getInShortsDao()
 
 }

@@ -78,9 +78,12 @@ dependencies {
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
 
     // COIL - Coroutine Image Loader
-    implementation "io.coil-kt:coil:2.2.1"
+    implementation "io.coil-kt:coil:2.2.2"
 
     // ViewModel & LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+    // Preference DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }
