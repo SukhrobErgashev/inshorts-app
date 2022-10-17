@@ -6,7 +6,6 @@ import dev.sukhrob.inshorts.domain.model.Article
 
 @Entity
 data class ArticleEntity(
-    @PrimaryKey
     val id: String,
     val author: String,
     val content: String,
@@ -14,6 +13,7 @@ data class ArticleEntity(
     val imageUrl: String,
     val readMoreUrl: String?,
     val time: String,
+    @PrimaryKey
     val title: String,
     val url: String,
     val category: String,

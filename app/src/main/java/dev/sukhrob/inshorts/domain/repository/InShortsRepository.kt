@@ -3,6 +3,7 @@ package dev.sukhrob.inshorts.domain.repository
 import android.util.Log
 import dev.sukhrob.inshorts.data.local.database.dao.ArticlesDao
 import dev.sukhrob.inshorts.data.local.database.entity.ArticleEntity
+import dev.sukhrob.inshorts.data.local.database.entity.toModel
 import dev.sukhrob.inshorts.data.remote.api.InShortsApi
 import dev.sukhrob.inshorts.data.remote.response.toEntity
 import dev.sukhrob.inshorts.domain.model.Article
@@ -10,6 +11,7 @@ import dev.sukhrob.inshorts.domain.model.toEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
@@ -19,7 +21,7 @@ class InShortsRepository @Inject constructor(
     private val dao: ArticlesDao,
 ) {
 
-    suspend fun loadNews(category: String, internet: Boolean): Flow<List<Article>> = flow {
+    suspend fun loadNews(category: String, internet: Boolean): Flow<List<Article>> {
         if (internet) {
             try {
                 val response = api.loadNewsByCategory(category)
@@ -34,10 +36,12 @@ class InShortsRepository @Inject constructor(
                 Log.d("TTT", e.message.toString())
             }
         }
-        emit(getArticlesByCategory(category))
+        return dao.getArticlesByCategory(category).map { list ->
+            list.map { entity ->
+                entity.toModel()
+            }
+        }
     }
-
-    private suspend fun getArticlesByCategory(category: String) = dao.getArticlesByCategory(category)
 
     private suspend fun insertArticleList(articles: List<ArticleEntity>) =
         dao.insertAll(articles)
