@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 import dev.sukhrob.inshorts.data.local.database.entity.ArticleEntity
 
 data class ArticleDto(
+    @SerializedName("id")
+    val id: String,
     @SerializedName("author")
     val author: String,
     @SerializedName("content")
@@ -24,6 +26,7 @@ data class ArticleDto(
 )
 
 fun ArticleDto.toEntity(category: String) = ArticleEntity(
+    id = id,
     author = author,
     content = content,
     date = date,

@@ -1,7 +1,6 @@
 package dev.sukhrob.inshorts.presenter.fragments.articles
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.view.MenuProvider
@@ -20,6 +19,7 @@ import dev.sukhrob.inshorts.presenter.fragments.base.BaseFragment
 import dev.sukhrob.inshorts.utils.hide
 import dev.sukhrob.inshorts.utils.show
 import dev.sukhrob.inshorts.utils.viewState.ViewState
+import kotlinx.coroutines.flow.collect
 
 
 @AndroidEntryPoint
@@ -27,7 +27,7 @@ class ArticlesFragment : BaseFragment<FragmentArticlesBinding>(FragmentArticlesB
 
     private val categoryAdapter by lazy { CategoryAdapter() }
     private val articlesAdapter by lazy { ArticlesAdapter() }
-    private val viewModel: ArticlesViewModel by viewModels<ArticlesViewModelImpl>()
+    private val viewModel: ArticlesViewModel by viewModels<ArticlesViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,7 +36,6 @@ class ArticlesFragment : BaseFragment<FragmentArticlesBinding>(FragmentArticlesB
         categoryAdapter.submitCategories(Categories.getAllCategory())
 
         setupArticlesList()
-        //viewModel.loadArticlesByCategory("all")
 
         setListeners()
         setupMenu()

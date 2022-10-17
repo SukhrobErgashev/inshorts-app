@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.sukhrob.inshorts.domain.model.Article
-import dev.sukhrob.inshorts.domain.model.toEntity
 import dev.sukhrob.inshorts.domain.repository.InShortsRepository
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,25 +19,21 @@ class BookmarksViewModel @Inject constructor(
     private val repo: InShortsRepository
 ): ViewModel() {
 
-    private var _loading = MutableLiveData<Boolean>()
-    private var _error = MutableLiveData<String>()
-    private var _bookmarks = MutableLiveData<List<Article>>()
+    private val _bookmarks = MutableStateFlow<List<Article>>(emptyList())
+    private val _isEmpty = MutableSharedFlow<Boolean>()
 
-    val loading: LiveData<Boolean> get() = _loading
-    val error: LiveData<String> get() = _error
-    val bookmarks: LiveData<List<Article>> get() = _bookmarks
+    val bookmarks: StateFlow<List<Article>> get() = _bookmarks
+    val isEmpty: SharedFlow<Boolean> get() = _isEmpty
 
     fun getBookmarks() {
         viewModelScope.launch {
-            _loading.postValue(true)
             repo.getBookmarks().collect {
                 if (it.isEmpty()) {
-                    _error.postValue("There are no bookmarks yet!")
+                    _isEmpty.tryEmit(true)
                 } else {
-                    _bookmarks.postValue(it)
+                    _bookmarks.value = it
                 }
             }
-            _loading.postValue(false)
         }
     }
 

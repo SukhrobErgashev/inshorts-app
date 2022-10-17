@@ -1,14 +1,13 @@
 package dev.sukhrob.inshorts.data.local.database.entity
 
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 import dev.sukhrob.inshorts.domain.model.Article
 
-@Entity(indices = [Index(value = ["imageUrl"], unique = true)])
+@Entity
 data class ArticleEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long? = null,
+    @PrimaryKey
+    val id: String,
     val author: String,
     val content: String,
     val date: String,
@@ -23,7 +22,7 @@ data class ArticleEntity(
 
 fun ArticleEntity.toModel(): Article {
     return Article(
-        id = id!!,
+        id = id,
         author = author,
         content = content,
         date = date,

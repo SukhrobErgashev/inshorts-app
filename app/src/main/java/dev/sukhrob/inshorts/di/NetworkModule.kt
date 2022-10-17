@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dev.sukhrob.inshorts.data.remote.api.InShortsApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -31,4 +32,7 @@ class NetworkModule {
     fun provideClient(@ApplicationContext context: Context): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(ChuckerInterceptor.Builder(context).build())
         .build()
+
+    @[Provides Singleton]
+    fun provideApi(retrofit: Retrofit): InShortsApi = retrofit.create(InShortsApi::class.java)
 }

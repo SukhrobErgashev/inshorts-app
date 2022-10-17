@@ -1,26 +1,51 @@
 package dev.sukhrob.inshorts.domain.repository
 
+import android.util.Log
+import dev.sukhrob.inshorts.data.local.database.dao.ArticlesDao
 import dev.sukhrob.inshorts.data.local.database.entity.ArticleEntity
-import dev.sukhrob.inshorts.data.remote.response.ArticleDto
+import dev.sukhrob.inshorts.data.remote.api.InShortsApi
+import dev.sukhrob.inshorts.data.remote.response.toEntity
 import dev.sukhrob.inshorts.domain.model.Article
-import dev.sukhrob.inshorts.domain.model.Resource
+import dev.sukhrob.inshorts.domain.model.toEntity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
+import java.lang.Exception
+import javax.inject.Inject
 
-interface InShortsRepository {
+class InShortsRepository @Inject constructor(
+    private val api: InShortsApi,
+    private val dao: ArticlesDao,
+) {
 
-    // load news
-    suspend fun loadNews(category: String, internet: Boolean): Flow<List<Article>>
+    suspend fun loadNews(category: String, internet: Boolean): Flow<List<Article>> = flow {
+        if (internet) {
+            try {
+                val response = api.loadNewsByCategory(category)
+                if (response.isSuccessful) {
+                    response.body()?.let { baseDto ->
+                        insertArticleList(baseDto.data.map { articleDto ->
+                            articleDto.toEntity(baseDto.category)
+                        })
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("TTT", e.message.toString())
+            }
+        }
+        emit(getArticlesByCategory(category))
+    }
 
-    // insert article list
-    suspend fun insertArticleList(articles: List<ArticleEntity>)
+    private suspend fun getArticlesByCategory(category: String) = dao.getArticlesByCategory(category)
 
-    // update article
-    suspend fun updateArticle(article: Article)
+    private suspend fun insertArticleList(articles: List<ArticleEntity>) =
+        dao.insertAll(articles)
 
-    // get articles by category
-    fun getArticlesByCategory(category: String): Flow<List<Article>>
+    suspend fun updateArticle(article: Article) = withContext(Dispatchers.IO) {
+        dao.update(article.toEntity())
+    }
 
-    // Get Bookmarks
-    fun getBookmarks(): Flow<List<Article>>
+    fun getBookmarks() = dao.getBookmarks()
 
 }
