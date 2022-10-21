@@ -1,11 +1,13 @@
 package dev.sukhrob.inshorts.presenter.fragments.articles
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.sukhrob.inshorts.domain.model.Article
 import dev.sukhrob.inshorts.domain.repository.InShortsRepository
 import dev.sukhrob.inshorts.utils.viewState.ViewState
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -16,11 +18,18 @@ class ArticlesViewModel @Inject constructor(
     private val repository: InShortsRepository
 ) : ViewModel() {
 
+    private var job: Job? = null
+
+    init {
+        job = viewModelScope.launch {  }
+    }
+
     private val _uiState = MutableStateFlow<ViewState>(ViewState.Empty)
     val uiState: StateFlow<ViewState> get() = _uiState
 
     fun loadArticlesByCategory(category: String) {
-        viewModelScope.launch {
+        if (job != null) job!!.cancel()
+        job = viewModelScope.launch {
             _uiState.value = ViewState.Loading
             repository.loadNews(category, true).collect { result ->
                 if (result.isEmpty()) {

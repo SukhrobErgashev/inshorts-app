@@ -70,7 +70,7 @@ class ArticlesFragment : BaseFragment<FragmentArticlesBinding>(FragmentArticlesB
         categoryAdapter.setItemClickListener {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             viewModel.loadArticlesByCategory(it)
-            Log.d("SSS", "category: $it")
+            Log.d("SSS", "Request to database by category: $it")
         }
 
         articlesAdapter.bookmarkListener = { article, position ->

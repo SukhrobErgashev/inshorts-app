@@ -9,9 +9,8 @@ import dev.sukhrob.inshorts.data.remote.response.toEntity
 import dev.sukhrob.inshorts.domain.model.Article
 import dev.sukhrob.inshorts.domain.model.toEntity
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.channels.trySendBlocking
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
@@ -20,25 +19,30 @@ class InShortsRepository @Inject constructor(
     private val api: InShortsApi,
     private val dao: ArticlesDao,
 ) {
-
     suspend fun loadNews(category: String, internet: Boolean): Flow<List<Article>> {
         if (internet) {
             try {
                 val response = api.loadNewsByCategory(category)
                 if (response.isSuccessful) {
                     response.body()?.let { baseDto ->
-                        insertArticleList(baseDto.data.map { articleDto ->
+                        val data = baseDto.data.map { articleDto ->
                             articleDto.toEntity(baseDto.category)
-                        })
+                        }
+                        insertArticleList(data)
                     }
                 }
             } catch (e: Exception) {
                 Log.d("TTT", e.message.toString())
             }
         }
-        return dao.getArticlesByCategory(category).map { list ->
-            list.map { entity ->
-                entity.toModel()
+
+//        dao.getArticlesByCategory(category).collect { list ->
+//            Log.d("SSS", "loadNews: ${list.first().category}")
+//            trySendBlocking(list.map { it.toModel() })
+//        }
+        return dao.getArticlesByCategory(category).map {
+            it.map {
+                it.toModel()
             }
         }
     }
