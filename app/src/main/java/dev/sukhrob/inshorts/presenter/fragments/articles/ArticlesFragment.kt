@@ -136,5 +136,4 @@ class ArticlesFragment : BaseFragment<FragmentArticlesBinding>(FragmentArticlesB
             ArticlesFragmentDirections.actionArticlesFragmentToBookmarksFragment()
         )
     }
-
 }

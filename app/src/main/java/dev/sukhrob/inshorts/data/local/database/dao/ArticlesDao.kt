@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 @Dao
 interface ArticlesDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(list: List<ArticleEntity>)
 
     @Update
@@ -18,7 +18,8 @@ interface ArticlesDao {
     @Query("SELECT * FROM ArticleEntity  WHERE category = :category")
     fun getArticlesByCategory(category: String): Flow<List<ArticleEntity>>
 
-    fun getArticlesDistinct(category: String): Flow<List<ArticleEntity>> = getArticlesByCategory(category).distinctUntilChanged()
+    fun getArticlesDistinct(category: String): Flow<List<ArticleEntity>> =
+        getArticlesByCategory(category).distinctUntilChanged()
 
     @Query("SELECT * FROM ArticleEntity  WHERE isBookmark = 1")
     fun getBookmarks(): Flow<List<Article>>

@@ -36,13 +36,9 @@ class InShortsRepository @Inject constructor(
             }
         }
 
-//        dao.getArticlesByCategory(category).collect { list ->
-//            Log.d("SSS", "loadNews: ${list.first().category}")
-//            trySendBlocking(list.map { it.toModel() })
-//        }
         return dao.getArticlesByCategory(category).map {
-            it.map {
-                it.toModel()
+            it.map { entity ->
+                entity.toModel()
             }
         }
     }
